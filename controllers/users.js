@@ -7,9 +7,9 @@ module.exports.getUsers = (req, res) => {
 };
 
 module.exports.getUser = (req, res) => {
-  User.findById(req.params.id)
+  User.findById(req.params.userId)
     .then((user) => res.send({ data: user }))
-    .catch((err) => res.status(500).send(`${err.message}: 'Произошла ошибка'`));
+    .catch((err) => res.status(500).send(`'${err.message}': 'Произошла ошибка'`));
 };
 
 module.exports.createUser = (req, res) => {
