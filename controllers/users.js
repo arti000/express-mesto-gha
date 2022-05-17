@@ -13,10 +13,16 @@ const getUsers = (req, res) => {
 
 const getUserByID = (req, res) => {
   User.findById(req.params.userId)
-    .then((user) => res.status(200).send(user))
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: 'Пользователь не найден' });
+        return;
+      }
+      res.status(200).send(user);
+    })
     .catch((err) => {
-      if (err.kind === 'ObjectId') {
-        res.status(404).send({
+      if (!req.params.userId.includes(/\d/)) {
+        res.status(400).send({
           message: 'Пользователь по указанному _id не найден',
           err,
         });
