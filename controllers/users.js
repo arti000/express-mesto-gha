@@ -5,7 +5,7 @@ const getUsers = (req, res) => {
     .then((users) => res.status(200).send(users))
     .catch((err) => res.status(500).send(
       {
-        message: 'Ошибка по умолчанию.',
+        message: 'Ошибка по умолчанию',
         err,
       },
     ));
@@ -15,7 +15,7 @@ const getUserByID = (req, res) => {
   User.findById(req.params.userId)
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.kind === 'ObjectID') {
+      if (err.kind === 'ObjectId') {
         res.status(404).send({
           message: 'Пользователь по указанному _id не найден',
           err,
@@ -34,7 +34,7 @@ const createUser = (req, res) => {
   User.create({ name, about, avatar })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.errors.name.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при создании пользователя',
           err,
@@ -57,16 +57,16 @@ const updateProfile = (req, res) => {
   })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.kind === 'ObjectID') {
+      if (err.kind === 'ObjectId') {
         res.status(404).send({
           message: 'Пользователь по указанному _id не найден',
           err,
         });
         return;
       }
-      if (err.errors.name.name === 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(400).send({
-          message: 'Переданы некорректные данные при обновлении аватара',
+          message: 'Переданы некорректные данные при обновлении профиля',
           err,
         });
         return;
@@ -94,7 +94,7 @@ const updateAvatar = (req, res) => {
         });
         return;
       }
-      if (err.errors.name.name === 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении аватара',
           err,
