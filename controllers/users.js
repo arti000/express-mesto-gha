@@ -15,15 +15,17 @@ const getUserByID = (req, res) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: 'Пользователь не найден' });
+        res.status(404).send({
+          message: 'Пользователь по указанному _id не найден',
+        });
         return;
       }
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         res.status(400).send({
-          message: 'Пользователь по указанному _id не найден',
+          message: 'Переданы некорректные данные при создании пользователя',
           err,
         });
         return;
