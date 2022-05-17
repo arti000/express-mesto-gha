@@ -14,6 +14,11 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use((req, res, next) => {
+  next(res.status(404).json({ message: 'Страница не найдена' }));
+});
+
 app.use('/', require('./routes/users'));
 app.use('/', require('./routes/cards'));
 
