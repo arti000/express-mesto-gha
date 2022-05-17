@@ -21,7 +21,7 @@ const getUserByID = (req, res) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (!req.params.userId.includes(/\d/)) {
+      if (err.name === 'CastError') {
         res.status(400).send({
           message: 'Пользователь по указанному _id не найден',
           err,
