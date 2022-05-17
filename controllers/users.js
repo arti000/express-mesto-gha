@@ -64,7 +64,7 @@ const updateProfile = (req, res) => {
         });
         return;
       }
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении профиля',
           err,
@@ -94,7 +94,7 @@ const updateAvatar = (req, res) => {
         });
         return;
       }
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении аватара',
           err,

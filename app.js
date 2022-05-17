@@ -15,6 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/', require('./routes/users'));
+app.use('/', require('./routes/cards'));
 
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
