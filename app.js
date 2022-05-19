@@ -22,8 +22,8 @@ app.use((req, res, next) => {
 
 app.use('/users', userRoutes);
 app.use('/cards', cardsRoutes);
-app.use('*', (req, res, next) => {
-  next(res.status(404).json({ message: 'Страница не найдена' }));
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Страница не найдена' });
 });
 
 async function main() {
