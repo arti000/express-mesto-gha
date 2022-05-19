@@ -79,12 +79,6 @@ const updateAvatar = (req, res) => {
   })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.kind === 'ObjectID') {
-        res.status(404).send({
-          message: 'Пользователь по указанному _id не найден',
-        });
-        return;
-      }
       if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении аватара',
