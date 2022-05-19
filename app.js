@@ -1,15 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const bodyParser = require('body-parser');
-
 const userRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(bodyParser.json({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true,
+}));
 
 app.use((req, res, next) => {
   req.user = {
