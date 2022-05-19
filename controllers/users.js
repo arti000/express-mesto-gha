@@ -6,7 +6,6 @@ const getUsers = (req, res) => {
     .catch((err) => res.status(500).send(
       {
         message: 'Ошибка по умолчанию',
-        err,
       },
     ));
 };
@@ -26,13 +25,11 @@ const getUserByID = (req, res) => {
       if (err.name === 'CastError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при создании пользователя',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -45,13 +42,11 @@ const createUser = (req, res) => {
       if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при создании пользователя',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -68,20 +63,17 @@ const updateProfile = (req, res) => {
       if (err.kind === 'ObjectId') {
         res.status(404).send({
           message: 'Пользователь по указанному _id не найден',
-          err,
         });
         return;
       }
       if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении профиля',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -98,20 +90,17 @@ const updateAvatar = (req, res) => {
       if (err.kind === 'ObjectID') {
         res.status(404).send({
           message: 'Пользователь по указанному _id не найден',
-          err,
         });
         return;
       }
       if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при обновлении аватара',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
