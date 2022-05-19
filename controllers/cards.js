@@ -6,7 +6,6 @@ const getCards = (req, res) => {
     .catch((err) => res.status(500).send(
       {
         message: 'Ошибка по умолчанию',
-        err,
       },
     ));
 };
@@ -26,13 +25,11 @@ const deleteCard = (req, res) => {
       if (err.kind === 'ObjectId') {
         res.status(400).send({
           message: 'Переданы некорректные данные для удаления карточки',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -46,13 +43,11 @@ const createCard = (req, res) => {
       if (err.name === 'ValidationError') {
         res.status(400).send({
           message: 'Переданы некорректные данные при создании карточки',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -76,13 +71,11 @@ const likeCard = (req, res) => {
       if (err.name === 'CastError') {
         res.status(400).send({
           message: 'Переданы некорректные данные для постановки/снятии лайка',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
@@ -106,13 +99,11 @@ const dislikeCard = (req, res) => {
       if (err.name === 'CastError') {
         res.status(400).send({
           message: 'Переданы некорректные данные для постановки/снятии лайка',
-          err,
         });
         return;
       }
       res.status(500).send({
         message: 'Ошибка по умолчанию',
-        err,
       });
     });
 };
