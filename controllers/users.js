@@ -148,4 +148,5 @@ module.exports = {
   createUser,
   updateProfile,
   updateAvatar,
+  login,
 };
