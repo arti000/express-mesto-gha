@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-
+const { createUser, login } = require('./controllers/users');
+const auth = require('./middlewares/auth');
 const userRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 
@@ -13,14 +14,14 @@ app.use(express.urlencoded({
   extended: true,
 }));
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '627ad0aa0d757da0d3d06090',
-  };
+// роуты, не требующие авторизации
+app.post('/signin', login);
+app.post('/signup', createUser);
 
-  next();
-});
+// авторизация
+app.use(auth);
 
+// роуты, которым нужна авторизация
 app.use('/users', userRoutes);
 app.use('/cards', cardsRoutes);
 app.use('*', (req, res) => {

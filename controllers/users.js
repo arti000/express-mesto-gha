@@ -18,7 +18,6 @@ const login = (req, res) => {
       // Записываем токен в куку
       res
         .cookie('jwt', token, {
-        // token - наш JWT токен, который мы отправляем
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
         })
@@ -141,6 +140,19 @@ const updateAvatar = (req, res) => {
     });
 };
 
+// Контроллер, возвращающий информацию о текущем пользователе
+const getUserInfo = (req, res) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: 'Ошибка по умолчанию',
+      });
+    });
+};
+
 // Экспорт контроллеров
 module.exports = {
   getUsers,
@@ -149,4 +161,5 @@ module.exports = {
   updateProfile,
   updateAvatar,
   login,
+  getUserInfo,
 };
