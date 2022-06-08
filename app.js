@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { createUser, login } = require('./controllers/users');
+const NotFoundError = require('./errors/not-found-err');
+const ServerError = require('./errors/server-err');
 const auth = require('./middlewares/auth');
 const userRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
@@ -25,8 +27,10 @@ app.use(auth);
 app.use('/users', userRoutes);
 app.use('/cards', cardsRoutes);
 app.use('*', (req, res) => {
-  res.status(404).json({ message: 'Страница не найдена' });
+  throw new NotFoundError('Запрашиваемая страница не найдена');
 });
+
+app.use(ServerError);
 
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
