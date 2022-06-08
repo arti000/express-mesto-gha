@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
+    validate: {
+      validator(password) {
+        return validator.isStrongPassword(password);
+      },
+      message: (props) => `${props.value} не является надежным паролем`,
+    },
     select: false,
   },
   name: {
