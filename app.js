@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-err');
@@ -12,7 +13,7 @@ const { validateUser, validateLogin } = require('./middlewares/validation');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
