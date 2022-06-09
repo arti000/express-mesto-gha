@@ -88,12 +88,12 @@ const createUser = (req, res, next) => {
     ))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
+        return next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
       }
       if (err.code === 11000) {
-        next(new ConflictError(`Пользователь с таким email ${req.body.email} уже существует`));
+        return next(new ConflictError(`Пользователь с таким email ${req.body.email} уже существует`));
       }
-      next(err);
+      return next(err);
     });
 };
 
@@ -139,9 +139,6 @@ const getUserInfo = (req, res, next) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.message === 'NotFound') {
-        next(new NotFoundError('Пользователь по указанному _id не найден'));
-      }
       next(err);
     });
 };
