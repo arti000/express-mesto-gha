@@ -27,7 +27,7 @@ const login = (req, res, next) => {
           sameSite: true,
           httpOnly: true,
         })
-        .end();
+        .send({ message: 'Логин успешный' });
     })
     .catch((err) => {
       // ошибка аутентификации
