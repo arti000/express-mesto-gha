@@ -10,6 +10,7 @@ const auth = require('./middlewares/auth');
 const userRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 const { validateUser, validateLogin } = require('./middlewares/validation');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -18,6 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
+
+// Подключаем логгер запросов
+app.use(requestLogger);
 
 // роуты, не требующие авторизации
 app.post('/signin', validateLogin, login);
@@ -33,6 +37,10 @@ app.use('*', (req, res) => {
   throw new NotFoundError('Страница не найдена');
 });
 
+// Подключаем логгер ошибок
+app.use(errorLogger);
+
+// Обработчик ошибок celebrate
 app.use(errors());
 app.use(ServerError);
 
